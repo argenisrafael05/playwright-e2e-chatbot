@@ -1,9 +1,10 @@
 # Requirements
 
-| Version | Date | Change |
-| --- | --- | --- |
-| 0.1 | October 2026 | Initial version |
-| 0.2 | October 2026 | Static review: verifiable acceptance criteria, extra negative login cases and documented assumptions ([test analysis](test-analysis.md)) |
+| Version | Date         | Change                                                                                                                                   |
+| ------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| 0.1     | October 2026 | Initial version                                                                                                                          |
+| 0.2     | October 2026 | Static review: verifiable acceptance criteria, extra negative login cases and documented assumptions ([test analysis](test-analysis.md)) |
+| 0.3     | October 2026 | NFR-01 separates failures caused by the tests from sites that don't answer (finding from the phase 2 verification)                       |
 
 ## 1. Vision
 
@@ -15,17 +16,17 @@ Neither system is ours: one is a shared public demo and the other is a third-par
 
 **Of what we test**
 
-| User | Goal |
-| --- | --- |
-| Employee using OrangeHRM | Log in, review and update their information, upload documents and log out |
-| Visitor of a website with a chatbot | Find the bot, greet it and get a reply |
+| User                                | Goal                                                                      |
+| ----------------------------------- | ------------------------------------------------------------------------- |
+| Employee using OrangeHRM            | Log in, review and update their information, upload documents and log out |
+| Visitor of a website with a chatbot | Find the bot, greet it and get a reply                                    |
 
 **Of what we build (the tests and their pipeline)**
 
-| User | Goal |
-| --- | --- |
-| Team QA | Know after every change, without manual testing, whether everything still works, and when something fails, see why |
-| Technical reviewer | Clone, run and understand the project without errors |
+| User               | Goal                                                                                                               |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| Team QA            | Know after every change, without manual testing, whether everything still works, and when something fails, see why |
+| Technical reviewer | Clone, run and understand the project without errors                                                               |
 
 ## 3. Scope
 
@@ -42,11 +43,11 @@ Neither system is ours: one is a shared public demo and the other is a third-par
 
 ## 4. Epics
 
-| Epic | Description | Stories |
-| --- | --- | --- |
-| E1. Web platform | What an employee does in OrangeHRM | US-01 to US-06 |
-| E2. Chatbot | What a visitor does with the bot | US-07 and US-08 |
-| E3. The tests | What the QA and the reviewer need | US-09 and US-10 |
+| Epic             | Description                        | Stories         |
+| ---------------- | ---------------------------------- | --------------- |
+| E1. Web platform | What an employee does in OrangeHRM | US-01 to US-06  |
+| E2. Chatbot      | What a visitor does with the bot   | US-07 and US-08 |
+| E3. The tests    | What the QA and the reviewer need  | US-09 and US-10 |
 
 ## 5. User stories
 
@@ -148,12 +149,12 @@ As a technical reviewer, I want to clone the project and run it by following the
 
 ## 6. Non-functional requirements
 
-| ID | Requirement | How it is validated |
-| --- | --- | --- |
-| NFR-01 | The tests are stable when repeated, locally and in the pipeline | The web tests pass 3 times in a row and the chatbot tests 2 times, with no failures. In the pipeline, no test is marked as flaky |
-| NFR-02 | The tests run on Chromium, the browser bundled with Playwright | Playwright configuration and a pipeline run |
-| NFR-03 | The code passes linting, formatting and type checking | ESLint, Prettier and TypeScript with no errors, checked in the pipeline before the tests |
-| NFR-04 | The tests don't depend on data that others can change in the demo, and they clean up what they create | Unique data per run, and the attachments test checks that none of its attachments remain |
+| ID     | Requirement                                                                                                      | How it is validated                                                                                                                                                                                                                                                   |
+| ------ | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NFR-01 | The tests are stable when repeated, locally and in the pipeline. A failure caused by the tests is never accepted | The web tests pass 3 times in a row and the chatbot tests 2 times. Every failure is classified: if the tests caused it, it is fixed; if a site didn't answer, the report shows a page that didn't load, and the pipeline retries it once and keeps it marked as flaky |
+| NFR-02 | The tests run on Chromium, the browser bundled with Playwright                                                   | Playwright configuration and a pipeline run                                                                                                                                                                                                                           |
+| NFR-03 | The code passes linting, formatting and type checking                                                            | ESLint, Prettier and TypeScript with no errors, checked in the pipeline before the tests                                                                                                                                                                              |
+| NFR-04 | The tests don't depend on data that others can change in the demo, and they clean up what they create            | Unique data per run, and the attachments test checks that none of its attachments remain                                                                                                                                                                              |
 
 ## 7. Definition of done
 
