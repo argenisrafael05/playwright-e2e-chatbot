@@ -28,6 +28,8 @@ export default defineConfig({
     {
       name: "chatbot",
       testDir: "./tests/specs/chatbot",
+      // A third-party bot: one conversation at a time, to be a good neighbor.
+      workers: 1,
       use: {
         ...devices["Desktop Chrome"],
         baseURL: "https://www.chatbot.com",

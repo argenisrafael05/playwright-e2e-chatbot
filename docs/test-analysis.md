@@ -71,7 +71,8 @@ Open questions that would go to the client in a real team. They are written down
 
 - **The state of the system decides whether a test passed; messages are checked as support.** A failed login is a login page that is still there with its form visible; the error message only supports it.
 - **Elements are located the way a user sees them,** in this order: role with its accessible name, label, placeholder and text. CSS only when nothing else is stable, and with a reason.
-- **Inside the third-party iframe,** the frame is located by a stable attribute and, inside it, the same user-facing locators are used. Never position-based chains.
+- **Inside the third-party iframe,** the frame is located by a stable attribute and, inside it, the same user-facing locators are used. Never position-based CSS chains.
+- **The bot's reply is the first message after the visitor's own message.** Messages carry no author marks, only generated CSS classes, so the visitor's message is found by its text and the reply is the next message in the conversation.
 - **Before automating each screen,** a locator analysis on the real page: what is shown, which elements are unique and stable, and which state proves the outcome.
 - **Assertions wait on their own;** no fixed waits. Each outcome has one decisive assertion and, if useful, supporting ones.
 - **The chatbot reply is checked by intent** (SR-19) and is always the first bot message after "Hola" (SR-20).
@@ -153,6 +154,8 @@ States: **Logged out** and **Logged in**.
 - A previous conversation restored from the browser storage.
 - The chat input hidden because the conversation ended.
 - A quick reply that ends the conversation before "Hola" is sent.
+- Counting messages to find the reply: the bot removes its menu when the visitor answers, so the count shifts.
+- Waiting for the reply row instead of its text: the bot first shows an empty "typing" row.
 - The session expired because the demo reset.
 - An Employee Id that already exists or is too long.
 - A date typed in the wrong format.
