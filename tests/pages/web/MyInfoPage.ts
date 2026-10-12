@@ -1,4 +1,5 @@
 import type { Locator, Page } from "@playwright/test";
+import { AttachmentsSection } from "./AttachmentsSection";
 import {
   formatDate,
   messages,
@@ -28,6 +29,7 @@ export class MyInfoPage {
   readonly bloodType: Locator;
   readonly testField: Locator;
   readonly savedMessage: Locator;
+  readonly attachments: AttachmentsSection;
 
   constructor(page: Page) {
     this.page = page;
@@ -57,6 +59,7 @@ export class MyInfoPage {
     this.bloodType = this.dropdown("Blood Type");
     this.testField = this.field("Test_Field").getByRole("textbox");
     this.savedMessage = page.getByText(messages.saved, { exact: true });
+    this.attachments = new AttachmentsSection(page);
   }
 
   // The labels aren't linked to their inputs, so each field is found inside the group of its visible label.

@@ -77,6 +77,17 @@ export function newCustomFields() {
   };
 }
 
+export const attachment = {
+  file: "tests/support/files/e2e-attachment.png",
+  fileName: "e2e-attachment.png",
+  // Every comment the tests write starts with this, so leftovers are found and nobody else's is touched.
+  commentPrefix: "e2e-attachment-",
+};
+
+export function newAttachmentComment() {
+  return `${attachment.commentPrefix}${uniqueSuffix()}`;
+}
+
 export const chatbot = {
   botName: "ChatBot",
   greeting: "Hola",
