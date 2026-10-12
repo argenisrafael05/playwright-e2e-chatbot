@@ -2,6 +2,7 @@
   "name": "playwright-e2e-chatbot",
   "version": "1.0.0",
   "private": true,
+  "license": "MIT",
   "description": "End-to-end tests for a web platform and a chatbot, with CI",
   "type": "module",
   "scripts": {
