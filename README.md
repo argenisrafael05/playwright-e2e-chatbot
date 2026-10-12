@@ -1,5 +1,7 @@
 # playwright-e2e-chatbot
 
+[![E2E](https://github.com/argenisrafael05/playwright-e2e-chatbot/actions/workflows/e2e.yml/badge.svg)](https://github.com/argenisrafael05/playwright-e2e-chatbot/actions/workflows/e2e.yml)
+
 Playwright and TypeScript tests for the OrangeHRM demo and a real chatbot, run by a GitHub Actions pipeline that publishes the report. The chatbot is the tricky part, because it's a third-party bot and it never answers the same way twice.
 
 ## What's tested
@@ -41,7 +43,7 @@ On Linux, add `--with-deps` to the install command. The OrangeHRM tests log in w
 
 ## Pipeline
 
-It runs on every push to `main`, or by hand from the Actions tab. First it checks formatting, types and linting. Then it runs the OrangeHRM and chatbot tests in parallel, merges both results into one report and publishes it on GitHub Pages, even if one part fails. Each failure comes with a screenshot and a trace.
+It runs on every push to `main`, or by hand from the Actions tab. First it checks formatting, types and linting. Then it runs the OrangeHRM and chatbot tests in parallel, merges both results into one report and publishes it on GitHub Pages, even if one part fails. Each failure comes with a screenshot and a trace. The latest report is at [argenisrafael05.github.io/playwright-e2e-chatbot](https://argenisrafael05.github.io/playwright-e2e-chatbot/).
 
 In CI, a failing test gets one retry, and if it only passes on the second try it shows up as flaky instead of green. Hiding that would make the report lie.
 
@@ -75,4 +77,4 @@ The full list is in [docs/decisions.md](docs/decisions.md).
 
 ## Resumen
 
-Pruebas con Playwright y TypeScript para el demo de OrangeHRM y un chatbot real. GitHub Actions las corre en cada cambio y publica el reporte. Lo difícil es el bot, porque no es nuestro y nunca contesta igual, así que la prueba valida la intención de la respuesta y no el texto exacto. Para correrlas necesitas Node 24 y estos comandos: `nvm use`, `npm ci`, `npx playwright install chromium` y `npm test`.
+Pruebas con Playwright y TypeScript para el demo de OrangeHRM y un chatbot real. GitHub Actions las corre en cada cambio y publica el [reporte](https://argenisrafael05.github.io/playwright-e2e-chatbot/). Lo difícil es el bot, porque no es nuestro y nunca contesta igual, así que la prueba valida la intención de la respuesta y no el texto exacto. Para correrlas necesitas Node 24 y estos comandos: `nvm use`, `npm ci`, `npx playwright install chromium` y `npm test`.
