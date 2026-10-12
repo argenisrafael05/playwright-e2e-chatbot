@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   quality:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
@@ -30,7 +30,7 @@ jobs:
 
   tests:
     needs: quality
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     strategy:
       # Each system keeps its own result when the other one fails.
@@ -57,7 +57,7 @@ jobs:
     needs: tests
     # Also runs when a part failed, so the report shows which one.
     if: ${{ !cancelled() && needs.tests.result != 'skipped' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
@@ -85,7 +85,7 @@ jobs:
   publish:
     needs: report
     if: ${{ !cancelled() && needs.report.result == 'success' && github.ref == 'refs/heads/main' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
       pages: write
