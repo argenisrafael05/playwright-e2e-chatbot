@@ -19,6 +19,15 @@ export class DashboardPage {
     await this.page.goto(routes.dashboard, { waitUntil: "domcontentloaded" });
   }
 
+  // The user menu shows the user's name, which anyone can change, so it is opened from the profile picture.
+  async logout() {
+    await this.page
+      .getByRole("banner")
+      .getByRole("img", { name: "profile picture" })
+      .click();
+    await this.page.getByRole("menuitem", { name: "Logout" }).click();
+  }
+
   async openFromMenu(option: string) {
     await this.sidepanel
       .getByRole("link", { name: option, exact: true })
