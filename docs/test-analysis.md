@@ -65,7 +65,7 @@ Open questions that would go to the client in a real team. They are written down
 
 **Not tested:** what the requirements leave out of scope, and the internals of OrangeHRM and ChatBot.com. No load is put on the third-party systems.
 
-**Test types:** a few smoke tests that run first and confirm that both sites are up and the login works; end-to-end tests through the UI of both systems; pipeline checks (linting, formatting and types); and stability by repetition.
+**Test types:** a few smoke tests that confirm that both sites are up and the login works, end-to-end tests through the UI of both systems, pipeline checks (linting, formatting and types) and stability by repetition. In the pipeline, the login that saves the shared session runs before the web tests: if the demo doesn't load or the login fails, they don't run.
 
 ## 3. Locator and assertion strategy
 
@@ -95,19 +95,19 @@ The evidence of these checks goes into the summary of each phase.
 
 The priority comes from crossing impact and probability. High priority is automated first.
 
-| ID   | Risk                                                                                                                      | Impact | Probability | Priority | Requirement          |
-| ---- | ------------------------------------------------------------------------------------------------------------------------- | ------ | ----------- | -------- | -------------------- |
-| R-01 | Other users change or delete demo data or settings during a run (in phase 4, the date format changed between two runs)    | High   | Medium      | High     | US-03, US-04, NFR-04 |
-| R-02 | The demo resets, slows down or is unavailable (in phase 2, a page once took more than 60 s to load)                       | High   | Medium      | High     | E1                   |
-| R-03 | The third-party bot changes its page or flow, or disappears                                                               | High   | Medium      | High     | E2                   |
-| R-04 | The test reads the automatic welcome as if it were the reply and passes without a real answer                             | High   | High        | High     | US-08                |
-| R-05 | Timing makes tests flaky: an async bot reply or a slow demo                                                               | High   | High        | High     | NFR-01               |
-| R-06 | Logging out ends the session that other tests share (in phase 5, a logout on its own session left the shared one working) | High   | Medium      | High     | US-06                |
-| R-07 | A date or Employee Id in the wrong format makes saving fail                                                               | Medium | Medium      | Medium   | US-03                |
-| R-08 | Attachments left by the tests pile up in the shared demo                                                                  | Medium | Medium      | Medium   | US-05, NFR-04        |
-| R-09 | The pipeline looks green while something failed, or there is no report when it fails                                      | High   | Low         | Medium   | US-09                |
-| R-10 | A bot button sends the conversation to a real person                                                                      | Medium | Low         | Low      | US-07                |
-| R-11 | Linting or type errors get into `main`                                                                                    | Low    | Medium      | Low      | NFR-03               |
+| ID   | Risk                                                                                                                                                                                     | Impact | Probability | Priority | Requirement          |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ----------- | -------- | -------------------- |
+| R-01 | Other users change or delete demo data or settings during a run (in phase 4, the date format changed between two runs)                                                                   | High   | Medium      | High     | US-03, US-04, NFR-04 |
+| R-02 | The demo resets, slows down or is unavailable (in phase 2, a page once took more than 60 s to load)                                                                                      | High   | Medium      | High     | E1                   |
+| R-03 | The third-party bot changes its page or flow, or disappears                                                                                                                              | High   | Medium      | High     | E2                   |
+| R-04 | The test reads the automatic welcome as if it were the reply and passes without a real answer                                                                                            | High   | High        | High     | US-08                |
+| R-05 | Timing makes tests flaky: an async bot reply or a slow demo                                                                                                                              | High   | High        | High     | NFR-01               |
+| R-06 | Logging out ends the session that other tests share (in phase 5, a logout on its own session left the shared one working)                                                                | High   | Medium      | High     | US-06                |
+| R-07 | A date or Employee Id in the wrong format makes saving fail                                                                                                                              | Medium | Medium      | Medium   | US-03                |
+| R-08 | Attachments left by the tests pile up in the shared demo                                                                                                                                 | Medium | Medium      | Medium   | US-05, NFR-04        |
+| R-09 | The pipeline looks green while something failed, or there is no report when it fails (in phase 6, checked locally: a failing part fails its job and still shows up in the merged report) | High   | Low         | Medium   | US-09                |
+| R-10 | A bot button sends the conversation to a real person                                                                                                                                     | Medium | Low         | Low      | US-07                |
+| R-11 | Linting or type errors get into `main`                                                                                                                                                   | Low    | Medium      | Low      | NFR-03               |
 
 ## 6. Test conditions
 
