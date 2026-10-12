@@ -73,6 +73,6 @@ The full list is in [docs/decisions.md](docs/decisions.md).
 - [Test analysis](docs/test-analysis.md)
 - [Decisions](docs/decisions.md)
 
-## Resumen en español
+## Resumen
 
 Pruebas con Playwright y TypeScript para el demo de OrangeHRM y un chatbot real. GitHub Actions las corre en cada cambio y publica el reporte. Lo difícil es el bot, porque no es nuestro y nunca contesta igual, así que la prueba valida la intención de la respuesta y no el texto exacto. Para correrlas necesitas Node 24 y estos comandos: `nvm use`, `npm ci`, `npx playwright install chromium` y `npm test`.
