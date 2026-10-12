@@ -1,4 +1,10 @@
 import { defineConfig, devices } from "@playwright/test";
+import { sessionFile } from "./tests/support/test-data";
+
+const orangeHrm = {
+  ...devices["Desktop Chrome"],
+  baseURL: "https://opensource-demo.orangehrmlive.com",
+};
 
 export default defineConfig({
   fullyParallel: true,
@@ -15,15 +21,20 @@ export default defineConfig({
   },
   projects: [
     {
+      name: "setup",
+      testDir: "./tests/setup",
+      testMatch: /.*\.setup\.ts/,
+      timeout: 60_000,
+      use: orangeHrm,
+    },
+    {
       name: "web",
       testDir: "./tests/specs/web",
+      dependencies: ["setup"],
       // The demo is shared and slows down with several sessions at once, and the tests use the same user.
       workers: 1,
       timeout: 60_000,
-      use: {
-        ...devices["Desktop Chrome"],
-        baseURL: "https://opensource-demo.orangehrmlive.com",
-      },
+      use: { ...orangeHrm, storageState: sessionFile },
     },
     {
       name: "chatbot",
