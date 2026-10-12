@@ -71,7 +71,8 @@ Open questions that would go to the client in a real team. They are written down
 
 - **The state of the system decides whether a test passed; messages are checked as support.** A failed login is a login page that is still there with its form visible; the error message only supports it.
 - **Elements are located the way a user sees them,** in this order: role with its accessible name, label, placeholder and text. CSS only when nothing else is stable, and with a reason. Playwright recommends role locators first and doesn't recommend CSS or XPath; the order in between follows Testing Library's priority.
-- **Fields whose label isn't linked to them** (Employee Id, Other Id, Driver's License Number and the custom fields) are found inside the group of their visible label, using the class of the demo's design system. It is the only CSS in the web pages, and only where nothing more stable exists.
+- **Fields whose label isn't linked to them** (Employee Id, Other Id, Driver's License Number and the custom fields) are found inside the group of their visible label, using the class of the demo's design system.
+- **The attachment actions** (edit, delete and download) are icon buttons without a name, so each one is found by its icon inside the row of our attachment, and the row by its unique comment. Along with the fields above, this is the only CSS in the web pages, used only where nothing more stable exists.
 - **Inside the third-party iframe,** the frame is located by a stable attribute and, inside it, the same user-facing locators are used. Never position-based CSS chains.
 - **The bot's reply is the first message after the visitor's own message.** Messages carry no author marks, only generated CSS classes, so the visitor's message is found by its text and the reply is the next message in the conversation.
 - **Before automating each screen,** a locator analysis on the real page: what is shown, which elements are unique and stable, and which state proves the outcome.
@@ -94,19 +95,19 @@ The evidence of these checks goes into the summary of each phase.
 
 The priority comes from crossing impact and probability. High priority is automated first.
 
-| ID   | Risk                                                                                                                   | Impact | Probability | Priority | Requirement          |
-| ---- | ---------------------------------------------------------------------------------------------------------------------- | ------ | ----------- | -------- | -------------------- |
-| R-01 | Other users change or delete demo data or settings during a run (in phase 4, the date format changed between two runs) | High   | Medium      | High     | US-03, US-04, NFR-04 |
-| R-02 | The demo resets, slows down or is unavailable (in phase 2, a page once took more than 60 s to load)                    | High   | Medium      | High     | E1                   |
-| R-03 | The third-party bot changes its page or flow, or disappears                                                            | High   | Medium      | High     | E2                   |
-| R-04 | The test reads the automatic welcome as if it were the reply and passes without a real answer                          | High   | High        | High     | US-08                |
-| R-05 | Timing makes tests flaky: an async bot reply or a slow demo                                                            | High   | High        | High     | NFR-01               |
-| R-06 | Logging out ends the session that other tests share                                                                    | High   | Medium      | High     | US-06                |
-| R-07 | A date or Employee Id in the wrong format makes saving fail                                                            | Medium | Medium      | Medium   | US-03                |
-| R-08 | Attachments left by the tests pile up in the shared demo                                                               | Medium | Medium      | Medium   | US-05, NFR-04        |
-| R-09 | The pipeline looks green while something failed, or there is no report when it fails                                   | High   | Low         | Medium   | US-09                |
-| R-10 | A bot button sends the conversation to a real person                                                                   | Medium | Low         | Low      | US-07                |
-| R-11 | Linting or type errors get into `main`                                                                                 | Low    | Medium      | Low      | NFR-03               |
+| ID   | Risk                                                                                                                      | Impact | Probability | Priority | Requirement          |
+| ---- | ------------------------------------------------------------------------------------------------------------------------- | ------ | ----------- | -------- | -------------------- |
+| R-01 | Other users change or delete demo data or settings during a run (in phase 4, the date format changed between two runs)    | High   | Medium      | High     | US-03, US-04, NFR-04 |
+| R-02 | The demo resets, slows down or is unavailable (in phase 2, a page once took more than 60 s to load)                       | High   | Medium      | High     | E1                   |
+| R-03 | The third-party bot changes its page or flow, or disappears                                                               | High   | Medium      | High     | E2                   |
+| R-04 | The test reads the automatic welcome as if it were the reply and passes without a real answer                             | High   | High        | High     | US-08                |
+| R-05 | Timing makes tests flaky: an async bot reply or a slow demo                                                               | High   | High        | High     | NFR-01               |
+| R-06 | Logging out ends the session that other tests share (in phase 5, a logout on its own session left the shared one working) | High   | Medium      | High     | US-06                |
+| R-07 | A date or Employee Id in the wrong format makes saving fail                                                               | Medium | Medium      | Medium   | US-03                |
+| R-08 | Attachments left by the tests pile up in the shared demo                                                                  | Medium | Medium      | Medium   | US-05, NFR-04        |
+| R-09 | The pipeline looks green while something failed, or there is no report when it fails                                      | High   | Low         | Medium   | US-09                |
+| R-10 | A bot button sends the conversation to a real person                                                                      | Medium | Low         | Low      | US-07                |
+| R-11 | Linting or type errors get into `main`                                                                                    | Low    | Medium      | Low      | NFR-03               |
 
 ## 6. Test conditions
 
@@ -160,12 +161,14 @@ States: **Logged out** and **Logged in**.
 - The session expired because the demo reset.
 - An Employee Id that already exists or is too long.
 - A date typed in the wrong format, or the demo's date format changing between runs.
-- The success confirmation disappearing before it is checked.
+- Success notices that disappear before they are checked, or that linger and stack: the attachment steps are checked in the list instead.
 - The download not being captured.
-- Typing before the form has loaded its data: the app overwrites what was typed.
+- Typing before a form has loaded its data (My Info and the attachment's edit form): the app overwrites what was typed.
 - A radio button covered by its styled circle: it is chosen through its label.
 - Each form words its success notice differently: the check uses the notice title.
 - The delete confirmation not being handled.
+- The list showing no rows while it reloads: an attachment would look deleted even if it wasn't, so the deletion waits for the server's answer and the list is checked after reloading the page.
+- Other people's attachments in the shared list: the tests only touch rows with their own unique comment.
 - The third-party iframe still loading when the test looks inside it.
 
 ## 7. Traceability matrix
