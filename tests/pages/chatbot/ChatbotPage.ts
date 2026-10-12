@@ -15,8 +15,8 @@ export class ChatbotPage {
   constructor(page: Page) {
     this.page = page;
     this.heading = page.getByRole("heading", { name: "Embedded Chat Widget" });
-    // The vendor renders a second, hidden frame with the same title, so the frame is found by its name.
-    this.chatFrame = page.locator('iframe[name="chat-widget"]');
+    // The vendor renders a second, hidden frame with the same title, so the frame is found by its id.
+    this.chatFrame = page.locator("#chat-widget");
     this.chat = this.chatFrame.contentFrame();
     this.chatWithUsButton = this.chat.getByRole("button", {
       name: "Chat with us",

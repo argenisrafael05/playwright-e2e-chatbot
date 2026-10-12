@@ -24,6 +24,9 @@ async function expectLoginForm(loginPage: LoginPage) {
 }
 
 test.describe("Login", () => {
+  // These tests start logged out, without the saved session.
+  test.use({ storageState: { cookies: [], origins: [] } });
+
   test.beforeEach(async ({ loginPage }) => {
     await loginPage.goto();
   });
