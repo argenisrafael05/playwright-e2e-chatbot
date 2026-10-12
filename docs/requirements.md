@@ -5,6 +5,7 @@
 | 0.1     | October 2026 | Initial version                                                                                                                          |
 | 0.2     | October 2026 | Static review: verifiable acceptance criteria, extra negative login cases and documented assumptions ([test analysis](test-analysis.md)) |
 | 0.3     | October 2026 | NFR-01 separates failures caused by the tests from sites that don't answer (finding from the phase 2 verification)                       |
+| 1.0     | October 2026 | Version published with the project                                                                                                       |
 
 ## 1. Vision
 
@@ -25,7 +26,7 @@ Neither system is ours: one is a shared public demo and the other is a third-par
 
 | User               | Goal                                                                                                               |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| Team QA            | Know after every change, without manual testing, whether everything still works, and when something fails, see why |
+| QA team            | Know after every change, without manual testing, whether everything still works, and when something fails, see why |
 | Technical reviewer | Clone, run and understand the project without errors                                                               |
 
 ## 3. Scope
@@ -43,11 +44,11 @@ Neither system is ours: one is a shared public demo and the other is a third-par
 
 ## 4. Epics
 
-| Epic             | Description                        | Stories         |
-| ---------------- | ---------------------------------- | --------------- |
-| E1. Web platform | What an employee does in OrangeHRM | US-01 to US-06  |
-| E2. Chatbot      | What a visitor does with the bot   | US-07 and US-08 |
-| E3. The tests    | What the QA and the reviewer need  | US-09 and US-10 |
+| Epic             | Description                            | Stories         |
+| ---------------- | -------------------------------------- | --------------- |
+| E1. Web platform | What an employee does in OrangeHRM     | US-01 to US-06  |
+| E2. Chatbot      | What a visitor does with the bot       | US-07 and US-08 |
+| E3. The tests    | What the QA team and the reviewer need | US-09 and US-10 |
 
 ## 5. User stories
 
@@ -129,7 +130,7 @@ As a visitor, I want to greet the bot so that I get its reply.
 
 **US-09 Run everything in the pipeline** · Must
 
-As a QA, I want the pipeline to run the web platform and chatbot tests and leave me a report, so that I know whether something broke without testing by hand.
+As a QA engineer, I want the pipeline to run the web platform and chatbot tests and leave me a report, so that I know whether something broke without testing by hand.
 
 - It runs every time changes are pushed to `main` and when triggered manually.
 - It first checks linting, formatting and types. If that check fails, the pipeline fails without running the tests.

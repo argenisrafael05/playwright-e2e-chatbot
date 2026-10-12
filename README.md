@@ -9,6 +9,12 @@ Playwright and TypeScript tests for the OrangeHRM demo and a real chatbot, run b
 
 Both sites are public demos, so a run depends on them. If one is down, the report shows which page didn't load.
 
+## Stack
+
+- Playwright 1.63 with TypeScript
+- ESLint and Prettier
+- GitHub Actions and GitHub Pages
+
 ## How to run it
 
 You need Node 24 (the version is in `.nvmrc`).
@@ -53,7 +59,7 @@ docs/         requirements, test analysis and decisions
 
 ## Decisions
 
-- The chatbot is a real third-party bot. One built for the tests would always say what the tests expect, and that proves nothing. So the test checks that the first message after "Hola" is a greeting, whatever the wording.
+- The chatbot is a real third-party bot, on purpose. Its replies change and nobody here controls them, and that's the real challenge. So the test checks that the first message after "Hola" is a greeting, whatever the wording.
 - A test passes or fails on what the page shows. A failed login is a login page that's still there, and the error message only backs it up.
 - Locators go by role, label or text, the way a user finds things. CSS shows up only where the page gives nothing better, and the code says why.
 - The web tests log in once and share the session. Login and logout start from scratch, so a logout never touches the shared one.
